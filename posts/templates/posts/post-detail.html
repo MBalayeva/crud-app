@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts %}
+    <script src="{% static 'posts/postDetail.js' %}" defer></script>
+{% endblock scripts %}
+
+{% block title %}
+ {{post.title}} details
+{% endblock title %}
+
+{% block content %}
+<div class="btn-wrapper mt-2">
+    <button id="back-btn" class="btn btn-info">Back</button>
+    <button id="update-btn" class="btn btn-primary not-visible" data-bs-toggle="modal" data-bs-target="#updatePostModal">Update</button>
+    <button id="delete-btn" class="btn btn-danger not-visible" data-bs-toggle="modal" data-bs-target="#deletePostModal">Delete</button>
+</div>
+
+<div id="alert-box" class="position-fixed bottom-0 end-0 d-inline-block"></div>
+
+<!-- Update Modal -->
+<div class="modal fade" id="updatePostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="update-post-form">
+                    {% csrf_token %}
+                    {{ post_form.as_p }} {% comment %} |crispy {% endcomment %}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="delete-post-form">
+                    {% csrf_token %}
+                    Are you sure  you want to delete the post <b>"{{post.title}}"</b>?
+                    <div class="modal-footer mt-3">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header text-center" id="title-wrapper">
+                
+            </div>
+            <div class="card-body">
+                <div id="body-wrapper" class="card-text"></div>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+              <div class="card-footer text-muted d-flex justify-content-end">
+                2 days ago
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <div class="spinner-border text-primary my-5" role="status" id="spinner-box">
+    </div>
+</div>
+{% endblock content %}

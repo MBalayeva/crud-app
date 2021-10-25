@@ -1,0 +1,16 @@
+img {
+    max-width: 100%;
+}
+
+.not-visible {
+    display: none;
+}
+
+.user-info {
+    gap: .5rem
+}
+
+.user-avatar {
+    width: 2rem !important; 
+    height: 2rem;
+}
